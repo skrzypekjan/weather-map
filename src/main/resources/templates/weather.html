@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>WeatherMapApp</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">WeatherMapApp</a>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="form-inline">
+        <div class="form-group">
+            <label for="city">Your City:</label>
+            <input type="text" class="form-control" id="city">
+        </div>
+        <button class="details-button">Select</button>
+    </div>
+</div>
+<div class="container">
+    <div class="jumbotron">
+        <h1 th:text="${weather.getName()}"></h1>
+        <p th:text="${weather.getName()}" />
+        <p th:text="${weather.getCoord().getLat()}" />
+        <p th:text="${weather.getCoord().getLon()}" />
+        <p th:text="${weather.main.getTemp()}" />
+        <p th:text="${weather.getSys().getCountry()}" />
+        <p th:text="${weather.getWind().getDeg()}" />
+        <p th:text="${weather.main.getTemp()}" />
+    </div>
+</div>
+</body>
+</html>
