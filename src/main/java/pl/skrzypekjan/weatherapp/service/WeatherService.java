@@ -13,11 +13,9 @@ public class WeatherService {
 
     public WeatherService() {
         this.restTemplate = new RestTemplate();
-//        WeatherAll object = restTemplate.getForObject(  config.getUrl() + "Sztum" + "&appid=" + config.getKey(), WeatherAll.class);
-//        System.out.println(object);
     }
 
-    public WeatherAll getWether(String city){
+    public WeatherAll getWeather(String city){
         WeatherAll weatherAll = restTemplate.getForObject(  config.getUrl() + city + "&appid=" + config.getKey() + "&units=metric", WeatherAll.class);
         return weatherAll;
     }
