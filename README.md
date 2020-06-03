@@ -5,4 +5,4 @@ The application allows you to search for weather for a specific city.
 * SpringBoot
 * Bootstrap
 * OpenWeather [Api](https://openweathermap.org/)
-* OpenStreetMap [link](www.openstreetmap.org)
+* OpenStreetMap [link](https://www.openstreetmap.org/#map=5/50.736/34.475)
