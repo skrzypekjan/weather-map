@@ -12,46 +12,64 @@
 
 </head>
 <body>
-<nav class="navbar navbar-default" style="background-image:
-url(https://lh3.googleusercontent.com/proxy/i_NrvnZ70hPQNnhRj5bMbcOZSqtFUvc3RF4IluXuJVVJ8ROTzA-yzxnSKOU1fq_-sllYv1tS0dq7KCkhcm7fCEaknerOjpffmNGv8FlyoDTcKp4mOgEJeRvyAQqnscdHPejD); background-size:cover;">
-    <div class="container-fluid">
-        <div class="navbar-header" >
-            <br>
-            <h2 style="display: inline">WeatherMapApp</h2>
-            <h2 style="display: inline" th:text="${weather.getName()}"></h2>
-        </div>
-        <div class="form-inline" style="clear: both">
-            <div class="form-group">
-                <label for="city">Check the weather in your city:</label>
+<div id="wrapper">
+    <header>
+        <nav class="navbar navbar-default" style="background-image:url(https://i.pinimg.com/originals/6d/df/89/6ddf89a95cc31286387b11c64c1991a8.jpg); background-size:cover; max-height: 25%">
+            <div class="container-fluid">
+                <div class="navbar-header" >
+                    <br>
+                    <h2 style="display: inline">WeatherMapApp</h2>
+                    <h2 style="display: inline" th:text="${weather.getName()}"></h2>
+                </div>
+                <div class="form-inline" style="clear: both">
+                    <div class="form-group">
+                        <form method="post">
+                            <label>Check the weather in your city:</label>
+                            <br>
+                            <input type="text" class="form-control" name="city" style="max-width: 200px; float: left">
+                            <button type="submit" class="btn btn-primary" style="float: left">Search</button>
+                        </form>
+                    </div>
+                </div>
                 <br>
-                <input type="text" class="form-control" id="city" style="max-width: 200px; float: left">
-                <button type="button" class="btn btn-primary" style="float: left">Search</button>
+                <hr style="clear: both; height: 3px; background: white">
             </div>
-        </div>
-        <br>
-        <hr style="clear: both; height: 3px; background: white">
+        </nav>
+    </header>
+    <div class="container-fluid">
+<!--                <p th:text="${weather.getClouds().getAll()}" />-->
+        <div id="mapid" style="max-height: 60%; height: 664px"></div>
     </div>
-</nav>
-<div class="container-fluid">
-<!--        <p th:text="${weather.getName()}" />-->
-<!--        <p th:text="${weather.getCoord().getLat()}" />-->
-<!--        <p th:text="${weather.getCoord().getLon()}" />-->
-    <div id="mapid" style="height: 695px"></div>
-
+    <br>
+    <footer>
+        <div class="container-fluid" style="max-height: 15%; background-image:url(https://i.pinimg.com/originals/6d/df/89/6ddf89a95cc31286387b11c64c1991a8.jpg); background-size:cover; text-align: center;" >
+            <p> All Rights Reserved 2020 Github <a href="https://github.com/skrzypekjan/weather-map">skrzypekjan</a></p>
+        </div>
+    </footer>
 </div>
+
 
 <script th:inline="javascript">
 
+    var lat = [[${weather.getCoord().getLat()}]];
+    var lon = [[${weather.getCoord().getLon()}]];
+    var name = [[${weather.getName()}]];
+    var temp = [[${weather.getMain().getTemp()}]];
+    var wind = [[${weather.getWind().getSpeed()}]];
+    var cloud = [[${weather.getClouds().getAll()}]];
+    var img = [[${weather.getWeather().get(0).getIcon()}]];
+    var desc = [[${weather.getWeather().get(0).getDescription()}]];
+    var src = '<img src="http://openweathermap.org/img/wn/' + img + '@2x.png" />';
 
-    // var map = L.map('mapid').setView([54.35, 18.64], 5);
-    var map = L.map('mapid').setView([49.59, 17.25], 5);
+    var map = L.map('mapid').setView([ lat, lon ], 9);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    L.marker([54.35, 18.64]).addTo(map)
-        .bindPopup("My city!")
+    L.marker([ lat, lon]).addTo(map)
+        .bindPopup("<p> City: " + name + "<br> Temperature: " + temp + " °C" + "<br> Wind speed: " + wind + " m/s" +
+        "<br>" + src + "<br> Description: " + desc + "<br> Cloudiness: " + cloud + " %" + "</p><style>p{text-align: center;}</style>").openPopup();
 
 </script>
 </body>
